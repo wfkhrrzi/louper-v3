@@ -6,6 +6,7 @@ import { type Abi, type AbiFunction, type Address } from 'viem'
 import toast from 'svelte-french-toast'
 import type { Contract } from './types'
 import consola from 'consola'
+import { PUBLIC_SOURCIFY_SERVER_URL } from '$env/static/public'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -74,17 +75,45 @@ export const getContractInformation = async (
   chainId: number,
 ): Promise<Contract> => {
   try {
-    const response = await fetch(`https://anyabi.xyz/api/get-abi/${chainId}/${address}`)
-    if (!response.ok) {
-      consola.info('ABI not found.')
-      return { name: 'Unverified', address, abi: [] }
-    }
-    const contractData = await response.json()
+    let response
 
-    return {
-      ...contractData,
-      address,
+    // fetch from anyabi.xyz
+    consola.info('Fetching ABI from anyabi.xyz...')
+    response = await fetch(`https://anyabi.xyz/api/get-abi/${chainId}/${address}`)
+
+    if (response.ok) {
+      const contractData = await response.json()
+      return {
+        ...contractData,
+        address,
+      }
     }
+
+    // fetch from sourcify
+    consola.info('Fetching ABI from sourcify...')
+    response = await fetch(
+      `${PUBLIC_SOURCIFY_SERVER_URL}/repository/contracts/full_match/${chainId}/${address}/metadata.json`,
+    )
+    if (response.ok) {
+      const contractData: {
+        output: {
+          abi: Abi
+        }
+        settings: {
+          compilationTarget: { [key: string]: string }
+        }
+      } = await response.json()
+
+      return {
+        abi: contractData.output.abi,
+        address,
+        name: Object.values(contractData.settings.compilationTarget)[0],
+      }
+    }
+
+    // cannot find ABI
+    consola.info('ABI not found.')
+    return { name: 'Unverified', address, abi: [] }
   } catch (e) {
     consola.error(e)
     consola.info('ABI not found.')
