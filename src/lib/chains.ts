@@ -19,4 +19,41 @@ for (const [k, v] of Object.entries(chains)) {
   allChains.push(v)
 }
 
+// define & add local & sw mainnet fork
+const mainnetForkChains: { [key: string]: Chain } = {
+  swForkedMainnet: {
+    id: 31337,
+    name: 'SW BSC Mainnet Fork',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'BNB',
+      symbol: 'BNB',
+    },
+    rpcUrls: {
+      default: {
+        http: ['http://195.26.247.134:8545'],
+      },
+    },
+  },
+  localForkedMainnet: {
+    id: 31337,
+    name: 'Uludag BSC Mainnet Fork',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'BNB',
+      symbol: 'BNB',
+    },
+    rpcUrls: {
+      default: {
+        http: ['http://192.168.0.20:8545'],
+      },
+    },
+  },
+}
+
+for (const [k, v] of Object.entries(mainnetForkChains)) {
+  chainMap[k] = v
+  allChains.push(v)
+}
+
 export { chainMap, allChains }
