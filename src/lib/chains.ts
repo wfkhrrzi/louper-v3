@@ -31,7 +31,7 @@ const mainnetForkChains: { [key: string]: Chain } = {
     },
     rpcUrls: {
       default: {
-        http: ['http://195.26.247.134:8545'],
+        http: ['https://preview-rpc.gmexchange.com'],
       },
     },
   },
