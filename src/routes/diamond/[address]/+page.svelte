@@ -44,7 +44,7 @@
   const explorerUrl = chain?.blockExplorers?.default.url || 'https://etherscan.io'
   onMount(async () => {
     const louper = defaultConfig({
-      walletConnectProjectId: '6d8897eb4adc9e4bb2f608642115f17a',
+      walletConnectProjectId: 'bd807ca89255f6c6693f73f8380fa61b',
       chains: allChains as [Chain],
     })
     await louper.init()
