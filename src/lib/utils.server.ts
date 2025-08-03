@@ -4,7 +4,7 @@ import consola from 'consola'
 import type { BunSQLiteDatabase } from 'drizzle-orm/bun-sqlite'
 import { contracts } from '../schema'
 import { and, eq } from 'drizzle-orm'
-import { PUBLIC_SOURCIFY_SERVER_URL } from '$env/static/public'
+import { INTERNAL_SOURCIFY_SERVER_URL } from '$env/static/private'
 
 export const getContractInformation = async (
   address: Address,
@@ -28,7 +28,7 @@ export const getContractInformation = async (
     // fetch from sourcify
     consola.info('Fetching ABI from sourcify...')
     response = await fetch(
-      `${PUBLIC_SOURCIFY_SERVER_URL}/repository/contracts/full_match/${chainId}/${address}/metadata.json`,
+      `${INTERNAL_SOURCIFY_SERVER_URL}/repository/contracts/full_match/${chainId}/${address}/metadata.json`,
     )
     if (response.ok) {
       const contractData: {

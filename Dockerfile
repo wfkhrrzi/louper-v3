@@ -5,7 +5,10 @@ COPY package.json package.json
 RUN bun install
 
 COPY . .
-ENV PUBLIC_SOURCIFY_SERVER_URL=http://192.168.0.20:5555
+#set public domain
+ENV PUBLIC_SOURCIFY_SERVER_URL=https://sourcify-server.uludagcrib.site
+#set internal ip
+ENV INTERNAL_SOURCIFY_SERVER_URL=http://192.168.0.20:5555
 RUN bun --bun run build
 
 EXPOSE 3000
