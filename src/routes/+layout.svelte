@@ -72,10 +72,10 @@
   </Alert.Root>
 </div>
 <div class="container pt-10">
-  <div class="my-24 rounded-[0.5rem] border shadow-sm shadow-primary">
+  <div class="rounded-[0.5rem] border shadow-sm shadow-primary">
     <div class="border-b">
-      <div class="flex h-16 items-center p-5">
-        <nav class="flex items-center space-x-4 lg:space-x-6 mx-6">
+      <div class="flex items-center p-5 overflow-x-auto">
+        <nav class="flex items-center space-x-6 mx-6">
           <a
             href="/"
             class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -85,7 +85,7 @@
           <a
             href="https://eips.ethereum.org/EIPS/eip-2535"
             target="_blank"
-            class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            class="min-w-32 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             Diamond Standard (EIP-2535)
           </a>
@@ -106,7 +106,7 @@
         <div class="ml-auto flex items-center space-x-4">
           <div>
             <input
-              class="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-9 md:w-[100px] lg:w-[300px]"
+              class="flex w-48 rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-9 lg:w-[300px]"
               type="search"
               placeholder="Diamond address..."
               bind:value={address}

@@ -70,7 +70,7 @@
 </script>
 
 <div class="flex flex-col space-y-6">
-  <div class="py-5">
+  <div class="py-5 overflow-x-auto">
     <p class="text-4xl text-primary font-bold">{data.diamond.name}</p>
     <p class="text-xl text-muted-foreground font-bold">
       {data.diamond.address}

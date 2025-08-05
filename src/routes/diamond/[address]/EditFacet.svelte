@@ -274,9 +274,9 @@
   }
 </script>
 
-<div class="flex flex-row items-center justify-between p-2 space-x-3">
+<div class="flex flex-col sm:flex-row gap-5 items-center justify-between p-2">
   <ConnectWallet />
-  <div>
+  <div class="flex flex-col sm:flex-row gap-3">
     <Dialog.Root bind:open={addFacetDialogOpen}>
       <Dialog.Trigger>
         <Button variant="secondary">Add Facet</Button>

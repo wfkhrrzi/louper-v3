@@ -112,20 +112,22 @@
   <Table.Caption>{selectedFacet ? `${activeAbi.length} available method(s)` : ''}</Table.Caption>
   <Table.Header>
     <Table.Row>
-      <Table.Head class="text-xl pb-5">
-        {selectedFacet ?? 'Choose a facet to interact with.'}
-      </Table.Head>
-      <Table.Head class="flex items-center justify-end">
-        <Select.Root onSelectedChange={onFacetChange}>
-          <Select.Trigger class="w-[280px]">
-            <Select.Value placeholder="Choose Facet" />
-          </Select.Trigger>
-          <Select.Content class="h-64 overflow-y-auto">
-            {#each facetsList as f}
-              <Select.Item value={f.abi}>{f.name}</Select.Item>
-            {/each}
-          </Select.Content>
-        </Select.Root>
+      <Table.Head class="items-center">
+        <div class="flex flex-col sm:flex-row justify-between items-start">
+          <div class="text-xl pb-5">{selectedFacet ?? 'Choose a facet to interact with.'}</div>
+          <div class="flex pb-5 items-center justify-end">
+            <Select.Root onSelectedChange={onFacetChange}>
+              <Select.Trigger class="w-[280px]">
+                <Select.Value placeholder="Choose Facet" />
+              </Select.Trigger>
+              <Select.Content class="h-64 overflow-y-auto">
+                {#each facetsList as f}
+                  <Select.Item value={f.abi}>{f.name}</Select.Item>
+                {/each}
+              </Select.Content>
+            </Select.Root>
+          </div>
+        </div>
       </Table.Head>
     </Table.Row>
   </Table.Header>
