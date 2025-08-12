@@ -15,6 +15,12 @@ for (const [k, v] of Object.entries(chains)) {
   if (k === 'zkSyncInMemoryNode') continue
   if (k === 'zkSyncLocalNode') continue
   if (k === 'lineaTestnet') continue
+
+  if (k === 'bsc')
+    v.rpcUrls = {
+      default: { http: ['https://bsc-dataseed.bnbchain.org/'] as any },
+    }
+
   chainMap[k] = v
   allChains.push(v)
 }
