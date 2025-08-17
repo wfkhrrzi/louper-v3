@@ -79,36 +79,47 @@ export const getContractInformation = async (
 
     // fetch from anyabi.xyz
     consola.info('Fetching ABI from anyabi.xyz...')
-    response = await fetch(`https://anyabi.xyz/api/get-abi/${chainId}/${address}`)
+    try {
+      // fetch from anyabi.xyz
+      response = await fetch(`https://anyabi.xyz/api/get-abi/${chainId}/${address}`)
 
-    if (response.ok) {
-      const contractData = await response.json()
-      return {
-        ...contractData,
-        address,
+      if (response.ok) {
+        const contractData = await response.json()
+        return {
+          ...contractData,
+          address,
+        }
       }
+    } catch (e) {
+      consola.error(e)
+      consola.info('skipping abi.xyz')
     }
 
     // fetch from sourcify
     consola.info('Fetching ABI from sourcify...')
-    response = await fetch(
-      `${PUBLIC_SOURCIFY_SERVER_URL}/repository/contracts/full_match/${chainId}/${address}/metadata.json`,
-    )
-    if (response.ok) {
-      const contractData: {
-        output: {
-          abi: Abi
-        }
-        settings: {
-          compilationTarget: { [key: string]: string }
-        }
-      } = await response.json()
+    try {
+      response = await fetch(
+        `${PUBLIC_SOURCIFY_SERVER_URL}/repository/contracts/full_match/${chainId}/${address}/metadata.json`,
+      )
+      if (response.ok) {
+        const contractData: {
+          output: {
+            abi: Abi
+          }
+          settings: {
+            compilationTarget: { [key: string]: string }
+          }
+        } = await response.json()
 
-      return {
-        abi: contractData.output.abi,
-        address,
-        name: Object.values(contractData.settings.compilationTarget)[0],
+        return {
+          abi: contractData.output.abi,
+          address,
+          name: Object.values(contractData.settings.compilationTarget)[0],
+        }
       }
+    } catch (e) {
+      consola.error(e)
+      consola.info('skipping sourcify')
     }
 
     // cannot find ABI
